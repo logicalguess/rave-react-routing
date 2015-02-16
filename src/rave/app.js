@@ -3,7 +3,7 @@ var Router = require('react-router');
 var { Route, DefaultRoute, Redirect, RouteHandler, Link, Navigation } = Router;
 
 var Modal = require('../../modal/index');
-var appElement = document.getElementById('example');
+var appElement = document.getElementById('content');
 Modal.setAppElement(appElement);
 Modal.injectCSS();
 
@@ -246,5 +246,5 @@ var routes = (
 
 Router.run(routes, function (Handler, state) {
     console.log('Rendering', state);
-    React.render(<Handler/>, document.getElementById('example'));
+    React.render(<Handler/>, document.getElementById('content'));
 });
