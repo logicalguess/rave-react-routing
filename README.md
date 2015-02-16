@@ -15,7 +15,7 @@ Important Points
 ----------------
 * The React router works at the component level
 * Components can pass configuration to their children in props (similar to Angular directives attributes)
-* Components can hold references to their children to extract data when needed
+* Components can hold references to their children to call methods on them when needed
 
 The routes are defined as follows:
 
