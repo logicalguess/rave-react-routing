@@ -14,6 +14,18 @@ To run:
 Important Points
 ----------------
 * The React router works at the component level
-* Component can pass configuration to their children in props (similar to Angular directives attributes)
+* Components can pass configuration to their children in props (similar to Angular directives attributes)
 * Components can hold references to their children to extract data when needed
+
+The routes are defined as follows:
+
+    var routes = (
+        <Route name="app" path="/" handler={App}>
+            <DefaultRoute handler={Start}/>
+            <Route name="manage" path="/manage" handler={Manage}>
+                <Route name="groups" path="/manage" handler={ManageGroups}/>
+                <Route name="members" path=":id" handler={ManageMembers}/>
+            </Route>
+        </Route>
+    );
 
