@@ -13,7 +13,7 @@ To run:
 
 Important Points
 ----------------
-* The React router works at the component level
+* The React router works at the (view) component level
 * Components can pass configuration to their children in props (similar to Angular directives attributes)
 * Components can hold references to their children to call methods on them when needed
 * (View) Components handle only view state, and they notify and get notified by data stores/components when data changes
