@@ -2,9 +2,10 @@ var React = require('react');
 var Router = require('react-router');
 var { Route, DefaultRoute, Redirect, RouteHandler, Link, Navigation } = Router;
 
+var GroupStore = require('./GroupStore');
+
 var Modal = require('../../modal/index');
-var appElement = document.getElementById('content');
-Modal.setAppElement(appElement);
+Modal.setAppElement(document.getElementById('content'));
 Modal.injectCSS();
 
 var App = React.createClass({
@@ -72,7 +73,7 @@ var AddGroup = React.createClass({
     },
 
     save: function() {
-        var groupName = this.state.groupName;
+        var groupName = this.refs.groupName.getDOMNode().value;
         //validate
         if (groupName) {
             this.props.addGroup(groupName);
@@ -93,7 +94,8 @@ var AddGroup = React.createClass({
 
 
     handleChange: function(event) {
-        this.setState({groupName: event.target.value});
+        //this.setState({groupName: event.target.value});
+        //validation ?
     },
 
     render() {
@@ -111,7 +113,7 @@ var AddGroup = React.createClass({
                         <div className="modal-body">
                             <div className="row">
                                 <div className="col-xs-12">
-                                    <input autofocus type="text" className="form-control" value={this.groupName} onChange={this.handleChange} id="groupName" placeholder="Group name"/>
+                                    <input autofocus type="text" className="form-control" value={this.groupName} onChange={this.handleChange} ref="groupName" placeholder="Group name"/>
                                 </div>
                             </div>
                         </div>
@@ -129,29 +131,42 @@ var Manage = React.createClass({
     mixins: [ Router.State ],
 
     getInitialState: function () {
-        return { groups: [
-            {id : '34D', name : 'AM Classroom'},
-            {id : 'A5C', name : 'PM Classroom'},
-            {id : 'K3P', name : 'After School Care'}
-        ]};
+        return {
+            groups: GroupStore.getGroups(),
+            loading: true
+        };
+    },
+
+    componentWillMount: function () {
+        GroupStore.addChangeListener(this.updateGroups);
+    },
+
+    componentDidMount: function () {
+        GroupStore.init();
+    },
+
+    componentWillUnmount: function () {
+        GroupStore.removeChangeListener(this.updateGroups);
+    },
+
+    updateGroups: function () {
+        if (!this.isMounted())
+            return;
+
+        this.setState({
+            groups: GroupStore.getGroups(),
+            loading: false
+        });
     },
 
     getGroupById: function(id) {
-        var groups = this.state.groups;
-        for ( var i = 0, c = groups.length; i < c; i++ ) {
-            if (groups[i].id === id) return groups[i].name;
-        }
-        return 'Unknown';
+        return GroupStore.getGroupById(id);
     },
 
     DEFAULT_TITLE: 'My Groups',
 
     addGroup: function(groupName) {
-        var groups = this.state.groups.concat( {
-            id : Math.random().toString( 36 ).substring( 3 ),
-            name : groupName
-        } );
-        this.setState({groups: groups})
+        GroupStore.addGroup(groupName);
     },
 
     openModal: function() {
@@ -204,16 +219,7 @@ var ManageMembers = React.createClass({
     mixins: [ Router.State ],
 
     getInitialState: function () {
-        return { members: [
-            {id : '101', name : 'Amy Adams'},
-            {id : '102', name : 'Bill Bixby'},
-            {id : '103', name : 'Chevy Chase'},
-            {id : '103', name : 'Danny Devito'},
-            {id : '103', name : 'Emilio Estevez'},
-            {id : '103', name : 'Farah Fawcett'},
-            {id : '103', name : 'Gordon Gecko'},
-            {id : '103', name : 'Helen Hunt'}
-        ]};
+        return { members: GroupStore.getMembersForGroup()};
     },
 
     render () {
