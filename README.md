@@ -2,7 +2,10 @@ Rave React Routing
 ==================
 
 React implementation of the Blame Rave app showcased at the local ng-meetup: https://github.com/Transcordia/ng-meetup .
-[react-router](https://github.com/rackt/react-router) is used instead of the Angular ui-router.
+The React router [react-router](https://github.com/rackt/react-router) is used instead of the Angular ui-router.
+
+There are 2 versions of the code, one using stores (like FLux does), and one using RxJs for pushing data to the React
+components when needed.
 
 To run:
 
