@@ -36,7 +36,7 @@ The routes are defined as follows:
 Sample Code
 -------------
 
-components/GroupComponent.js (logical reactive component that maintains state and publishes it as an RxObservable that is
+`components/GroupComponent.js` (logical reactive component that maintains state and publishes it as an RxObservable that is
 subscribed to by configured view components):
 
     var LogicalComponent = require('../utils/logicalComponent');
@@ -80,7 +80,7 @@ subscribed to by configured view components):
 
     module.exports = LogicalComponent('GroupComponent', GroupComponent)
 
-views/manage.js view:
+`views/manage.js` (React component):
 
     var React = require('react');
     var Router = require('../../../modules/index');
@@ -135,7 +135,7 @@ views/manage.js view:
 
     module.exports = Manage;
 
-config.js:
+`config.js`:
 
 var GroupComponent = require('./components/GroupComponent');
 
