@@ -47,7 +47,7 @@ var Start = React.createClass({
     render () {
         return (
             <div className="row page-main">
-                <img src="images/BlameRave%20Logo.svg" />
+                <img src="../shared/images/BlameRave%20Logo.svg" />
                 <h4>Welcome {this.state.fullname}</h4>
                 <p>
                     <Link to="groups" className="btn btn-default btn-lg btn-block">Manage</Link>
