@@ -8,7 +8,7 @@ var ManageMembers = React.createClass({
     mixins: [ Router.State, ViewComponentMixin ],
 
     render () {
-        var links = this.state.getMembersForGroup().map(function (member) {
+        var links = this.state.getMembersForGroup(this.getParams()['id']).map(function (member) {
             return (
                 <Link to="/" className="list-group-item" key={member.name}>
                     <span className="pull-right"><i className="fa fa-angle-right"></i></span>
